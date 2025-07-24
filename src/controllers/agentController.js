@@ -178,6 +178,21 @@ exports.newMessage = catchAsync(async (req, res) => {
                                 type: 'text',
                             });
                         }
+                    } else if (data?.author === 'lesson_designer' && contentPart.text.startsWith('```json')) {
+                        try {
+                            const jsonData = JSON.parse(contentPart.text.replace('```json', '').replace('```', '').trim());
+                            finalData.push({
+                                data: jsonData,
+                                type: 'lesson_designer',
+                            });
+                        } catch (error) {
+                            logger.error(`Failed to parse JSON: ${error}`);
+                            finalData.push({
+                                text: contentPart.text,
+                                type: 'text',
+                            });
+                        }
+                        
                     } else {
                         finalData.push({
                             text: contentPart.text,
