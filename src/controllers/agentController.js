@@ -219,3 +219,37 @@ exports.newMessage = catchAsync(async (req, res) => {
         data: finalData,
     });
 });
+
+exports.FCMToken = catchAsync(async (req, res) => {
+    const { token } = req.body;
+
+    if (!token) {
+        return res.status(400).json({
+            success: false,
+            message: 'FCM token is required',
+        });
+    }
+
+    // Here you can save the token to your database or perform any other action
+    // For demonstration, we will just log it
+    logger.info(`Received FCM token: ${token}`);
+
+    //save to firebase
+    try {
+        await admin.firestore().collection('fcm_tokens').doc(token).set({
+            token,
+            createdAt: new Date(),
+        });
+    } catch (error) {
+        logger.error(`Failed to save FCM token: ${error}`);
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to save FCM token',
+        });
+    }
+
+    return res.status(200).json({
+        success: true,
+        message: 'FCM token received successfully',
+    });
+});
