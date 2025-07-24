@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const app = require('./app');
 const config = require('./config/config');
 const logger = require('./config/logger');
+const http = require('http');
 // const admin = require('firebase-admin');
 
 let server;
@@ -15,9 +16,10 @@ let server;
 // const db = admin.firestore();
 
 // Start the server
-server = app.listen(config.port, () => {
-  logger.info(`Listening to port ${config.port}`);
-});
+server = http.createServer(app);
+server.listen(4000, () => {
+            logger.info(`Listening to port 4000`);
+        });
 
 const exitHandler = () => {
   if (server) {
