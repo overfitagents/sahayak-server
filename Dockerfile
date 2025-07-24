@@ -6,7 +6,7 @@ WORKDIR /usr/src/node-app
  
 COPY package.json package-lock.json ./
  
-USER node
+# USER node
  
 RUN npm install --only=production
  
