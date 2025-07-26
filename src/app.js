@@ -21,6 +21,8 @@ if (config.env !== 'test') {
 
 // set security HTTP headers
 app.use(helmet());
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: true}));
 
 // parse json request body
 app.use(express.json());
