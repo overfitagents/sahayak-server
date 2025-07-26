@@ -260,7 +260,25 @@ exports.newMessage = catchAsync(async (req, res) => {
                             type: 'presentation_generator',
                             author: data.author
                         });
-                    } else {
+                    }// --- Handle Graph Visualizer Study Buddy Output ---
+                    else if (data?.author === 'graph_visualizer' || data?.author === 'TeacherAssistant' && contentPart.text) {
+                        try {
+                            const parsedToolOutput = JSON.parse(contentPart.text);
+                            console.log("parse", parsedToolOutput);
+                            
+                            if (parsedToolOutput && Array.isArray(parsedToolOutput.teams)) {
+                            finalData.push({
+                                data: parsedToolOutput, 
+                                type: 'study_buddy',  
+                                author: data.author
+                            });
+                                continue;
+                            }
+                        } catch (parseError) {
+                            logger.warn(`Could not parse graph_visualizer output as JSON: ${parseError.message}. Output: ${contentPart.text.substring(0, 100)}...`);
+                        }
+                    }  
+                    else {
                         finalData.push({
                             text: contentPart.text,
                             type: 'text',
