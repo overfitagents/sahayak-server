@@ -8,82 +8,56 @@ exports.createSession = catchAsync(async (req, res) => {
     //generate a  uuid userid
     const userId = `123e4567-e89b-12d3-a456-426614174000`;
     const appName = 'sahayak';
+    const currentDate = new Date();
+
     const state = {
-
-    "name": "Saloni",
-    "school_info": {
-        "name": "St. Xavier's High School",
-        "location": "Solapur, Maharashtra, India",
-        "type": "Public School"
-    },
-    "classes": [
-        {
-            "grade": 6,
-            "subjects": ["Science"],
-            "classId": "1235465"
-          
+        "name": "Saloni",
+        "school_info": {
+            "name": "St. Xavier's High School",
+            "location": "Solapur, Maharashtra, India",
+            "type": "Public School"
         },
-        {
-            "grade": 7,
-            "subjects": ["Science"],
-            "classId": "1235466"
-        }
-    ],
-    "timetable": {
-        "class_6": {
-            "Monday": [
-                {"subject": "Science", "time": "9:00-10:00"},
-                {"subject": "Science", "time": "11:00-12:00"}
-            ],
-            "Wednesday": [
-                {"subject": "Science", "time": "10:00-11:00"}
-            ]
+        "classes": [
+            {
+                "grade": 6,
+                "subjects": ["Science"],
+                "classId": "1235465"
+            },
+            {
+                "grade": 7,
+                "subjects": ["Science"],
+                "classId": "1235466"
+            }
+        ],
+        "timetable": {
+            "class_6": {
+                "Monday": [
+                    {"subject": "Science", "time": "9:00-10:00"},
+                    {"subject": "Science", "time": "11:00-12:00"}
+                ],
+                "Wednesday": [
+                    {"subject": "Science", "time": "10:00-11:00"}
+                ]
+            },
+            "class_7": {
+                "Tuesday": [
+                    {"subject": "Science", "time": "9:00-10:00"}
+                ],
+                "Thursday": [
+                    {"subject": "Science", "time": "11:00-12:00"}
+                ]
+            }
         },
-        "class_7": {
-            "Tuesday": [
-                {"subject": "Science", "time": "9:00-10:00"}
-            ],
-            "Thursday": [
-                {"subject": "Science", "time": "11:00-12:00"}
-            ]
-        }
-    },
-    "year_calendar": {
-            "term_1": {
-                "start_date": "2025-06-15",
-                "end_date": "2025-09-30"
-            },
-            "term_2": {
-                "start_date": "2025-10-16",
-                "end_date": "2026-03-15"
-            },
-            "holidays": [
-                {"name": "Diwali", "date": "2025-11-01"},
-                {"name": "Christmas", "date": "2025-12-25"}
-            ],
-            "exams": [
-                {"name": "Mid-term Exams", "start_date": "2025-09-01", "end_date": "2025-09-10"},
-                {"name": "Final Exams", "start_date": "2026-03-01", "end_date": "2026-03-10"}
-            ],
-            "events": [
-                {"name": "Science Fair", "date": "2025-08-15"},
-                {"name": "Parent-Teacher Meeting", "date": "2025-10-05"},
-                {"name": "Annual Day", "date": "2025-12-20"},
-                {"name": "Sports Day", "date": "2026-02-10"}
-            ]
-
-        
-    },
-    "current_grade": {},
-    "curriculum": {},
-    "current_lesson_plan":{},
-    "current_content_generated": {},
-    "current_student_profiles": {},
-    "retrieval_query": "",
-    "generated_lesson_plans": [],
-    "current_date": "2025-06-15",
-    "slide_contents": {}
-}
+        "current_grade": {},
+        "curriculum": {},
+        "current_lesson_plan": {},
+        "current_content_generated": {},
+        "current_student_profiles": {},
+        "retrieval_query": "",
+        "generated_lesson_plans": [],
+        "current_date": currentDate.toISOString().split('T')[0],
+        "slide_contents": {}
+    }
 
 
 
@@ -151,6 +125,7 @@ const get_image = async (image_filename, image_version, sessionId) => {
 };
 
 exports.newMessage = catchAsync(async (req, res) => {
+
     const { sessionId, text, fileData } = req.body;
 
     if (!sessionId || !text) {
@@ -168,6 +143,18 @@ exports.newMessage = catchAsync(async (req, res) => {
             "parts": [{}],
             "role": "user",
         }
+    }
+    if (text && fileData) {
+        data.newMessage.parts = [
+            { text: text },
+            { 
+                inlineData: {
+                    displayName: "sample_image",
+                    data: fileData,
+                    mimeType: "image/png"
+                }
+            }
+        ];
     }
 
     if (text) {
@@ -215,6 +202,13 @@ exports.newMessage = catchAsync(async (req, res) => {
                     finalData.push({
                         data: slideContents,
                         type: 'presentation_generator',
+                        author: data.author
+                    });
+                } else if (contentPart.functionResponse && contentPart.functionResponse.name === 'fetch_textbook_image') {
+                    // Handle interactive image response
+                    finalData.push({
+                        data: contentPart.functionResponse.response.filepath,
+                        type: 'interactive_image',
                         author: data.author
                     });
                 } else if (contentPart.text) {
