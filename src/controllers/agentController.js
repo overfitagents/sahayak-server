@@ -86,15 +86,6 @@ exports.createSession = catchAsync(async (req, res) => {
     "current_date": currentDate.toISOString().split('T')[0],
     "slide_contents": {}
 }
-
-   
-
-
-    
-
-
-
-
     // Call sahayak agent with proper URL path structure
     const response = await axios({
         method: 'POST',
@@ -300,6 +291,14 @@ exports.newMessage = catchAsync(async (req, res) => {
     }
 
     console.log('Final Data:', finalData);
+
+    // Merge text with interactive image items
+    for (let i = 0; i < finalData.length; i++) {
+        if (finalData[i].type === 'interactive_image' && i + 1 < finalData.length && finalData[i + 1].type === 'text') {
+            finalData[i].text = finalData[i + 1].text;
+            finalData.splice(i + 1, 1);
+        }
+    }
 
     return res.status(200).json({
         success: true,
