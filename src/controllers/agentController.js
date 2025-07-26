@@ -128,20 +128,27 @@ exports.createSession = catchAsync(async (req, res) => {
 });
 
 const get_image = async (image_filename, image_version, sessionId) => {
-        try {
-            const response = await axios({
-                method: 'GET',
-                url: `${config.sahayakAgentUrl}/apps/sahayak/users/123e4567-e89b-12d3-a456-426614174000/sessions/${sessionId}/artifacts/${image_filename}`,
-                headers: {
-                    Authorization: `Bearer ${config.sahayakApiKey}`,
-                },
-            });
-            return response.data;
-        } catch (error) {
-            logger.error(`Failed to get image: ${error}`);
-            throw new Error('Failed to get image');
-        }
-    };
+    try {
+        const response = await axios({
+            method: 'GET',
+            url: `${config.sahayakAgentUrl}/apps/sahayak/users/123e4567-e89b-12d3-a456-426614174000/sessions/${sessionId}/artifacts/${image_filename}`,
+            headers: {
+                Authorization: `Bearer ${config.sahayakApiKey}`,
+            },
+        });
+
+        return {
+            ...response.data,
+            inlineData: {
+                ...response.data.inlineData,
+                data: Buffer.from(response.data.inlineData.data, 'base64').toString('base64')
+            }
+        };
+    } catch (error) {
+        logger.error(`Failed to get image: ${error}`);
+        // throw new Error('Failed to get image');
+    }
+};
 
 exports.newMessage = catchAsync(async (req, res) => {
     const { sessionId, text, fileData } = req.body;
