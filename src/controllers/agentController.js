@@ -12,80 +12,118 @@ exports.createSession = catchAsync(async (req, res) => {
 
     const state =  {
 
-    "name": "Saloni",
-    "school_info": {
-        "name": "St. Xavier's High School",
-        "location": "Solapur, Maharashtra, India",
-        "type": "Public School"
-    },
-    "classes": [
-        {
-            "grade": 6,
-            "subjects": ["Science"],
-            "classId": "1235465"
-          
+        "name": "Savitha",
+        "school_info": {
+            "name": "St. Xavier's High School",
+            "location": "Solapur, Maharashtra, India",
+            "type": "Public School"
         },
-        {
-            "grade": 7,
-            "subjects": ["Science"],
-            "classId": "1235466"
-        }
-    ],
-    "timetable": {
-        "class_6": {
-            "Monday": [
-                {"subject": "Science", "time": "9:00-10:00"},
-                {"subject": "Science", "time": "11:00-12:00"}
-            ],
-            "Wednesday": [
-                {"subject": "Science", "time": "10:00-11:00"}
-            ]
+        "classes": [
+            {
+                "grade": 6,
+                "subjects": ["Science"],
+                "classId": "1235465"
+              
+            },
+            {
+                "grade": 7,
+                "subjects": ["Science", "English"],
+                "classId": "1235466"
+            }
+        ],
+        "timetable": {
+            "class_6": {
+                "Monday": [
+                    {"subject": "Science", "time": "9:00-10:00"},
+                    {"subject": "Science", "time": "10:00-11:00"},
+                    {"subject": "Science", "time": "11:00-12:00"},
+                    {"subject": "Science", "time": "12:00-1:00"}
+                ],
+                "Tuesday": [
+                    {"subject": "Science", "time": "9:00-10:00"},
+                    {"subject": "Science", "time": "10:00-11:00"},
+                    {"subject": "Science", "time": "11:00-12:00"}
+                ],
+                "Wednesday": [
+                    {"subject": "Science", "time": "9:00-10:00"},
+                    {"subject": "Science", "time": "10:00-11:00"},
+                    {"subject": "Science", "time": "11:00-12:00"}
+                ],
+                "Thursday": [
+                    {"subject": "Science", "time": "9:00-10:00"},
+                    {"subject": "Science", "time": "10:00-11:00"},
+                    {"subject": "Science", "time": "11:00-12:00"}
+                ],
+                "Friday": [
+                    {"subject": "Science", "time": "9:00-10:00"},
+                    {"subject": "Science", "time": "10:00-11:00"}
+                ]
+            },
+            "class_7": {
+                "Monday": [
+                    {"subject": "Science", "time": "9:00-10:00"},
+                    {"subject": "Science", "time": "10:00-11:00"},
+                    {"subject": "English", "time": "11:00-12:00"}
+                ],
+                "Tuesday": [
+                    {"subject": "Science", "time": "9:00-10:00"},
+                    {"subject": "Science", "time": "10:00-11:00"},
+                    {"subject": "Science", "time": "11:00-12:00"},
+                    {"subject": "English", "time": "12:00-1:00"}
+                ],
+                "Wednesday": [
+                    {"subject": "Science", "time": "9:00-10:00"},
+                    {"subject": "Science", "time": "10:00-11:00"},
+                    {"subject": "English", "time": "11:00-12:00"}
+                ],
+                "Thursday": [
+                    {"subject": "Science", "time": "9:00-10:00"},
+                    {"subject": "Science", "time": "10:00-11:00"},
+                    {"subject": "Science", "time": "11:00-12:00"}
+                ],
+                "Friday": [
+                    {"subject": "Science", "time": "9:00-10:00"},
+                    {"subject": "Science", "time": "10:00-11:00"},
+                    {"subject": "English", "time": "11:00-12:00"}
+                ]
+            }
         },
-        "class_7": {
-            "Tuesday": [
-                {"subject": "Science", "time": "9:00-10:00"}
-            ],
-            "Thursday": [
-                {"subject": "Science", "time": "11:00-12:00"}
-            ]
-        }
-    },
-    "year_calendar": {
-            "term_1": {
-                "start_date": "2025-06-15",
-                "end_date": "2025-09-30"
-            },
-            "term_2": {
-                "start_date": "2025-10-16",
-                "end_date": "2026-03-15"
-            },
-            "holidays": [
-                {"name": "Diwali", "date": "2025-11-01"},
-                {"name": "Christmas", "date": "2025-12-25"}
-            ],
-            "exams": [
-                {"name": "Mid-term Exams", "start_date": "2025-09-01", "end_date": "2025-09-10"},
-                {"name": "Final Exams", "start_date": "2026-03-01", "end_date": "2026-03-10"}
-            ],
-            "events": [
-                {"name": "Science Fair", "date": "2025-08-15"},
-                {"name": "Parent-Teacher Meeting", "date": "2025-10-05"},
-                {"name": "Annual Day", "date": "2025-12-20"},
-                {"name": "Sports Day", "date": "2026-02-10"}
-            ]
+        "year_calendar": {
+                "term_1": {
+                    "start_date": "2025-06-15",
+                    "end_date": "2025-09-30"
+                },
+                "term_2": {
+                    "start_date": "2025-10-16",
+                    "end_date": "2026-03-15"
+                },
+                "holidays": [
+                    {"name": "Diwali", "date": "2025-11-01"},
+                    {"name": "Christmas", "date": "2025-12-25"}
+                ],
+                "exams": [
+                    {"name": "Mid-term Exams", "start_date": "2025-09-01", "end_date": "2025-09-10"},
+                    {"name": "Final Exams", "start_date": "2026-03-01", "end_date": "2026-03-10"}
+                ],
+                "events": [
+                    {"name": "Science Fair", "date": "2025-08-15"},
+                    {"name": "Parent-Teacher Meeting", "date": "2025-10-05"},
+                    {"name": "Annual Day", "date": "2025-12-20"},
+                    {"name": "Sports Day", "date": "2026-02-10"}
+                ]
 
-        
-    },
-    "current_grade": {},
-    "curriculum": {},
-    "current_lesson_plan":{},
-    "current_content_generated": {},
-    "current_student_profiles": {},
-    "retrieval_query": "",
-    "generated_lesson_plans": [],
-    "current_date": currentDate.toISOString().split('T')[0],
-    "slide_contents": {}
-}
+            
+        },
+        "current_grade": {},
+        "curriculum": {},
+        "current_lesson_plan":{},
+        "current_content_generated": {},
+        "current_student_profiles": {},
+        "retrieval_query": "",
+        "generated_lesson_plans": [],
+        "current_date": currentDate.toISOString().split('T')[0],
+        "slide_contents": {}
+    }
     // Call sahayak agent with proper URL path structure
     const response = await axios({
         method: 'POST',
@@ -264,6 +302,38 @@ exports.newMessage = catchAsync(async (req, res) => {
                                 type: 'text',
                             });
                         }
+                    } else if (data?.author === 'student_performance_analyzer' && contentPart.text.startsWith('```json')) {
+                        try {
+                            const jsonData = JSON.parse(contentPart.text.replace('```json', '').replace('```', '').trim());
+                            finalData.push({
+                                data: jsonData,
+                                type: 'student_performance_analyzer',
+                                author: data.author
+                            });
+                        } catch (error) {
+                            logger.error(`Failed to parse JSON: ${error}`);
+                            finalData.push({
+                                text: contentPart.text,
+                                type: 'text',
+                                author: data.author
+                            });
+                        }
+                    } else if (data?.author === 'task_agent' && contentPart.text.startsWith('```json')) {
+                        try {
+                            const jsonData = JSON.parse(contentPart.text.replace('```json', '').replace('```', '').trim());
+                            finalData.push({
+                                data: jsonData,
+                                type: 'timetable',
+                                author: data.author
+                            });
+                        } catch (error) {
+                            logger.error(`Failed to parse JSON: ${error}`);
+                            finalData.push({
+                                text: contentPart.text,
+                                type: 'text',
+                                author: data.author
+                            });
+                        }
                     } else if (contentPart.functionResponse && contentPart.functionResponse.name === 'create_slide_images') {
                         console.log('Processing slide images...');
                         // Process each slide and get its image
@@ -339,3 +409,53 @@ exports.FCMToken = catchAsync(async (req, res) => {
         message: 'FCM token received successfully',
     });
 });
+
+exports.reminderCallback = catchAsync(async (req, res) => {
+    const { sessionId, reminder } = req.body;
+
+    if (!sessionId || !reminder) {
+        return res.status(400).json({
+            success: false,
+            message: 'Session ID and reminder are required',
+        });
+    }
+
+    // Here you can handle the reminder callback, e.g., send a notification or log it
+    logger.info(`Received reminder for session ${sessionId}: ${reminder}`);
+
+    // For demonstration, we will just return a success response
+    return res.status(200).json({
+        success: true,
+        message: 'Reminder received successfully',
+    });
+});
+
+const createNotificationMessage = (notificationData) => {
+    const {
+        title,
+        description,
+    } = notificationData;
+
+    // Create base notification message with dynamic parameters
+    const message = {
+        notification: {
+            title: title || 'New Notification',
+            body: description || 'You have a new notification',
+        },
+        data: {
+            title: title || 'New Notification',
+            description: description || 'You have a new notification',
+            timestamp: new Date().toISOString(),
+            ...data // Spread any additional data
+        },
+        webpush: {
+            notification: {
+                title: title || 'New Notification',
+                body: description || 'You have a new notification',
+            }
+        },
+   
+    };
+
+    return message;
+};
